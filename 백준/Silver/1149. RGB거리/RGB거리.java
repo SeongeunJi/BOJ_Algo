@@ -16,10 +16,11 @@ public class Main {
                 A[i][j] = Integer.parseInt(st.nextToken());
         }
         br.close();
+
         for(int i = 1; i <= t; i++) {
             D[i][1] = Math.min(D[i-1][2], D[i-1][3]) + A[i][1];
             D[i][2] = Math.min(D[i-1][1], D[i-1][3]) + A[i][2];
-            D[i][3] = Math.min(D[i-1][1], D[i-1][2]) + A[i][3];
+            D[i][3] = Math.min(D[i-1][2], D[i-1][1]) + A[i][3];
         }
 
         bw.write(String.valueOf(Math.min(Math.min(D[t][1],D[t][2]),D[t][3])));
