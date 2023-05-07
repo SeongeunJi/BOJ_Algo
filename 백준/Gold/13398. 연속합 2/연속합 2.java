@@ -29,10 +29,8 @@ public class Main {
             dp[i][2] = Math.max(A[i], A[i] + dp[i+1][2]);
 
         // 제거한 모든 경우 vs dp[i][1]
-        for(int i = 1; i <= n; i++) {
-            if(i == n) continue;
+        for(int i = 1; i < n; i++) 
             max = Math.max(max, dp[i - 1][1] + dp[i + 1][2]);
-        }
 
         bw.write(String.valueOf(max));
         bw.flush();
