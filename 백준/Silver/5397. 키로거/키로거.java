@@ -7,10 +7,10 @@ public class Main {
         BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
 
         int tc = Integer.parseInt(br.readLine());
+        Stack<Character> left = new Stack<>();
+        Stack<Character> right = new Stack<>();
         while (tc-- > 0) {
             char[] input = br.readLine().toCharArray();
-            Stack<Character> left = new Stack<>();
-            Stack<Character> right = new Stack<>();
 
             for (char ch : input) {
                 if (ch == '<') {
@@ -31,6 +31,9 @@ public class Main {
             for (Character character : left) bw.write(character);
             while(!right.empty()) bw.write(right.pop());
             bw.write("\n");
+            
+            left.clear();
+            right.clear();
         }
 
         bw.flush();
