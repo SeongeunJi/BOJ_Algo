@@ -15,7 +15,6 @@ public class Main {
 
         int cnt = 0;
         for (int i = 0; i < 26; i++) {
-            if(arr1[i] == arr2[i]) continue;
             cnt += Math.abs(arr1[i] - arr2[i]);
         }
         bw.write(String.valueOf(cnt));
