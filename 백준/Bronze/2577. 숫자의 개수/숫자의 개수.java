@@ -6,14 +6,14 @@ public class Main {
         BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
 
         int result = 1;
-        for (int i = 0; i < 3; i++) {
+        for (int i = 0; i < 3; i++) 
             result *= Integer.parseInt(br.readLine());
-        }
 
-        char[] sourceArr = String.valueOf(result).toCharArray();
         int[] resultArr = new int[10];
-        for(char ch : sourceArr)
-            resultArr[ch-'0']++;
+        while(result > 0) {
+            resultArr[result%10]++;
+            result/=10;
+        }
 
         for(int i : resultArr)
             bw.write(i + "\n");
