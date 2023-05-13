@@ -1,4 +1,3 @@
-
 import java.io.*;
 import java.util.*;
 
@@ -7,38 +6,29 @@ public class Main {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
 
-        // 송신 탑의 개수
         int N = Integer.parseInt(br.readLine());
-        Stack<Integer> top = new Stack<>();
-        Stack<Integer> idx = new Stack<>();
+        Stack<Pair> tower = new Stack<>();
 
         StringTokenizer st = new StringTokenizer(br.readLine());
+        tower.push(new Pair(100000001,0));
         for (int i = 1; i <= N; i++) {
             int val = Integer.parseInt(st.nextToken());
-
-            if (top.empty()) { // 비어 있다면
-                bw.write("0 ");
-                idx.push(i);
-            }
-            else if (top.peek() < val) {
-                while (!top.empty() && top.peek() < val) {
-                    top.pop();
-                    idx.pop();
-                }
-
-                if(top.empty()) bw.write("0 ");
-                else bw.write(idx.peek() + " ");
-
-            }
-            else if (top.peek() > val) {
-                bw.write(idx.peek() + " ");
-            }
-
-            idx.push(i);
-            top.push(val);
+            while(tower.peek().height < val)
+                tower.pop();
+            bw.write(tower.peek().idx + " ");
+            tower.push(new Pair(val, i));
         }
-
         bw.flush();
         bw.close();
     }
+
+    private static class Pair {
+        final int height;
+        final int idx;
+        public Pair(int height, int idx) {
+            this.height = height;
+            this.idx = idx;
+        }
+    }
 }
+
