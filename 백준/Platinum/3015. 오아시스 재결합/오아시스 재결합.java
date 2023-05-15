@@ -5,29 +5,24 @@ public class Main {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
 
-        int N = Integer.parseInt(br.readLine());
         Stack<Pair> stack = new Stack<>();
         long ans = 0;
-
-        while (N --> 0) {
-            int curHeight = Integer.parseInt(br.readLine());
+        int N = Integer.parseInt(br.readLine());
+        while (N-- > 0) {
+            int cur = Integer.parseInt(br.readLine());
             int cnt = 1;
-
-            while (!stack.empty() && stack.peek().height <= curHeight) {
+            while (!stack.empty() && stack.peek().height <= cur) {
                 ans += stack.peek().cnt;
-                if(stack.peek().height == curHeight) cnt += stack.peek().cnt;
+                if(stack.peek().height == cur) cnt += stack.peek().cnt;
                 stack.pop();
             }
             if(!stack.empty()) ans++;
-            stack.push(new Pair(curHeight, cnt));
+            stack.push(new Pair(cur, cnt));
         }
-
-
         bw.write(String.valueOf(ans));
         bw.flush();
         bw.close();
     }
-
     static class Pair {
         int height, cnt;
         public Pair(int height, int cnt) {
