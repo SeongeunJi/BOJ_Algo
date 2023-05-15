@@ -40,3 +40,16 @@ public class Main {
         bw.close();
     }
 }
+
+class A{
+    int x, y;
+    A(int x, int y) {
+        this.x = x;
+        this.y = y; 
+    }
+}
+        
+        
+        
+        
+       
