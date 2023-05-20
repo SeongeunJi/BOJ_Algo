@@ -1,3 +1,4 @@
+
 import java.io.*;
 import java.util.*;
 public class Main {
@@ -16,7 +17,7 @@ public class Main {
         Q.add(N); board[N] = 0;
         while (board[K] == -1) {
             int curX = Q.remove();
-            for (int nx : new int[]{curX + 1, curX - 1, curX * 2}) {
+            for (int nx : new int[]{curX+1, curX-1, curX*2}) {
                 if(nx < 0 || nx > 100000 || board[nx] >= 0) continue;
                 Q.add(nx);
                 board[nx] = board[curX] + 1;
