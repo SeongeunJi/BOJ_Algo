@@ -1,9 +1,5 @@
 import java.io.*;
-import java.util.ArrayDeque;
-import java.util.Arrays;
-import java.util.Queue;
-import java.util.StringTokenizer;
-
+import java.util.*;
 public class Main {
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -24,11 +20,11 @@ public class Main {
             for (int i = 0; i < 3; i++) {
                 int nx;
 
-                if(i == 2) nx = cx + 1;
-                else if(i == 1) nx = cx - 1;
+                if (i == 2) nx = cx + 1;
+                else if (i == 1) nx = cx - 1;
                 else nx = cx * 2;
 
-                if(nx < 0 || nx > 100000 || dist[nx] != -1) continue;
+                if (nx < 0 || nx > 100000 || dist[nx] != -1) continue;
                 if (i != 0) dist[nx] = dist[cx] + 1;
                 else dist[nx] = dist[cx];
 
