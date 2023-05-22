@@ -8,17 +8,17 @@ public class Main {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
 
-        int T = Integer.parseInt(br.readLine());
         int[] dx = {1, 0, -1, 0};
         int[] dy = {0, 1, 0, -1};
+        int T = Integer.parseInt(br.readLine());
         while (T --> 0) {
             StringTokenizer st = new StringTokenizer(br.readLine());
             int y = Integer.parseInt(st.nextToken());
             int x = Integer.parseInt(st.nextToken());
             int k = Integer.parseInt(st.nextToken());
 
-            int[][] board = new int[x+1][y+1];
-            boolean[][] vis = new boolean[x+1][y+1];
+            int[][] board = new int[x][y];
+            boolean[][] vis = new boolean[x][y];
 
             while (k --> 0) {
                 st = new StringTokenizer(br.readLine());
@@ -42,7 +42,7 @@ public class Main {
                             int nx = cur.x + dx[h];
                             int ny = cur.y + dy[h];
 
-                            if(nx < 0 || ny < 0 || nx > x || ny > y) continue;
+                            if(nx < 0 || ny < 0 || nx >= x || ny >= y) continue;
                             if(vis[nx][ny] || board[nx][ny] == 0) continue;
 
                             q.add(new Pair<>(nx, ny));
