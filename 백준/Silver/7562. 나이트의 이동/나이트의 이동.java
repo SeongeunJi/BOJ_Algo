@@ -18,9 +18,9 @@ public class Main {
 
             int sx = sc.nextInt(), sy = sc.nextInt();
             int ax = sc.nextInt(), ay = sc.nextInt();
-
             board[sx][sy] = 0;
             q.add(new Pair<>(sx, sy));
+
             while (board[ax][ay] == -1) {
                 Pair<Integer> cur = q.remove();
                 for (int i = 0; i < 8; i++) {
