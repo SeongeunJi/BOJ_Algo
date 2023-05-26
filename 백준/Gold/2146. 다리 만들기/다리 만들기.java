@@ -41,10 +41,10 @@ public class Main {
             }
         }
         int result = 987654321;
+        int[][] dist = new int[N][N];
         for (int i = 0; i < N; i++) {
             for (int j = 0; j < N; j++) {
                 if(board[i][j] == 0) continue;
-                int[][] dist = new int[N][N];
                 for(int[] tmp : dist) Arrays.fill(tmp, -1);
                 q.add(new Pair(i, j));
                 dist[i][j] = 0;
