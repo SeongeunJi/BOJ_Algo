@@ -35,7 +35,6 @@ public class Main {
         bw.flush();
         bw.close();
     }
-
     static int bfs() {
         while (!q.isEmpty()) {
             Tuple cur = q.remove();
@@ -60,25 +59,22 @@ public class Main {
         }
         return getETA();
     }
-
     static int getETA() {
-        boolean goAble = false;
+        boolean reachable = false;
         int result = 987654321;
         for (int[][] tmp : dist) {
             if(tmp[x-1][y-1] == -1) continue;
             result = Math.min(result, tmp[x-1][y-1]);
-            goAble = true;
+            reachable = true;
         }
-        if(!goAble) return -1;
-        return result;
+        return (!reachable) ? -1 : result;
     }
 
     static boolean OOB(int nx, int ny) {
         return nx < 0 || ny < 0 || nx >= x || ny >= y;
     }
     static class Tuple {
-        int x, y, k;
-
+        int k, x, y;
         public Tuple(int k, int x, int y) {
             this.x = x;
             this.y = y;
