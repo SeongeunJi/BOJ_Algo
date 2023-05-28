@@ -27,26 +27,25 @@ class Main {
             if(pi[i]>MAX) pi[i] = MAX;
         }
         LinkedList<Pair>[] list = new LinkedList[p+1];
-        for(int i=1; i<=p; i++) list[i] = new LinkedList<Pair>();
+        for(int i=1; i<=p; i++) list[i] = new LinkedList<>();
         for(int i = 0; i< x; i++) {
             String in = br.readLine();
             for(int j = 0; j< y; j++) {
                 char ch = in.charAt(j);
-                if(ch == '#') {
-                    board[i][j] = -1;
-                }else if(ch == '.') {
-                    board[i][j] = 0;
-                }else {
+                if(ch == '#') board[i][j] = -1;
+                else if(ch == '.') board[i][j] = 0;
+                else {
                     board[i][j] = ch-'0';
                     list[board[i][j]].add(new Pair(i,j));
                     result[board[i][j]]++;
                 }
             }
         }
-        while(true) {
+        boolean finish = false;
+        while(!finish) {
             for(int i=1; i<=p; i++) {
-                int e = 0;
-                while(list[i].size() > 0) {
+                int cnt = 0;
+                while(!list[i].isEmpty()) {
                     int ls = list[i].size();
                     while(ls-- > 0) {
                         Pair cur = list[i].poll();
@@ -59,29 +58,26 @@ class Main {
                             board[nx][ny] = i;
                         }
                     }
-                    e++;
-                    if(e == pi[i]) break;
+                    if(++cnt == pi[i]) break;
                 }
             }
-            boolean ok = true;
+            finish = true;
             for(int i=1; i<=p; i++) {
                 if (list[i].size() > 0) {
-                    ok = false;
+                    finish = false;
                     break;
                 }
             }
-            if(ok) break;
         }
+        
         for(int i=1; i<=p; i++)
             bw.write(result[i] + " ");
         bw.flush();
         bw.close();
     }
-
     private static boolean OOB(int ni, int nj) {
         return ni < 0 || ni >= x || nj < 0 || nj >= y;
     }
-
     static class Pair{
         int x, y;
         public Pair(int x, int y) {
