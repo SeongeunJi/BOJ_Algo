@@ -2,11 +2,10 @@ import java.util.*;
 import java.io.*;
 public class Main {
     public static void main(String[] args) throws IOException {
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
-
         int[] dx = {1, 0, -1, 0};
         int[] dy = {0, 1, 0, -1};
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
         StringTokenizer st = new StringTokenizer(br.readLine());
         int n = ps(st);
         int m = ps(st);
