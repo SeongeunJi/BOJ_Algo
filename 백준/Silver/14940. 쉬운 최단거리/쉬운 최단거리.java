@@ -2,7 +2,7 @@ import java.io.*;
 import java.util.*;
 public class Main {
     static int x, y;
-    static byte[][] board;
+    static int[][] board;
     static int[][] dist;
     static Queue<Pair> q = new LinkedList<>();
     static int[] dx = {1, 0, -1, 0};
@@ -13,12 +13,12 @@ public class Main {
         StringTokenizer st = new StringTokenizer(br.readLine());
         x = Integer.parseInt(st.nextToken());
         y = Integer.parseInt(st.nextToken());
-        board = new byte[x][y];
+        board = new int[x][y];
         dist = new int[x][y];
         for (int i = 0; i < x; i++) {
             st = new StringTokenizer(br.readLine());
             for (int j = 0; j < y; j++) {
-                board[i][j] = Byte.parseByte(st.nextToken());
+                board[i][j] = Integer.parseInt(st.nextToken());
                 if(board[i][j] == 1) dist[i][j] = -1;
                 else if (board[i][j] == 2) {
                     q.add(new Pair(i, j));
