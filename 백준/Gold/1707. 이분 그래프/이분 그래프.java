@@ -1,69 +1,50 @@
-import java.io.*;
 import java.util.*;
-
+import java.io.*;
 public class Main {
-	static int v, e;
-	static ArrayList<Integer>[] al;
-	static int visit[];
+    static int v, e;
+    static List<Integer>[] list;
+    static byte[] vis;
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+        int tc = Integer.parseInt(br.readLine());
+        while (tc-- > 0) {
+            StringTokenizer st = new StringTokenizer(br.readLine());
+            v = Integer.parseInt(st.nextToken());
+            e = Integer.parseInt(st.nextToken());
+            vis = new byte[v+1];
+            list = new List[v+1];
+            for (int i = 0; i <= v; i++) list[i] = new ArrayList<>();
+            while(e --> 0) {
+                st = new StringTokenizer(br.readLine());
+                int from = Integer.parseInt(st.nextToken());
+                int to = Integer.parseInt(st.nextToken());
+                list[from].add(to);
+                list[to].add(from);
+            }
+            bw.write((bfs()) ? "YES\n" : "NO\n");
+        }
+        bw.flush();
+        bw.close();
+    }
 
-	public static void main(String[] args) throws Exception {
-		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-		StringTokenizer stz = new StringTokenizer(br.readLine());
-		int t = Integer.parseInt(stz.nextToken());
-
-		for(int tc = 0; tc < t; tc++) {
-			stz = new StringTokenizer(br.readLine());
-			v = Integer.parseInt(stz.nextToken());
-			e = Integer.parseInt(stz.nextToken());
-			visit = new int[v+1];
-			al = new ArrayList[v+1];
-
-			for(int i = 0; i <= v; i++)
-				al[i] = new ArrayList<Integer>();
-
-			for(int i = 0; i < e; i++) {
-				stz = new StringTokenizer(br.readLine());
-				int p1 = Integer.parseInt(stz.nextToken());
-				int p2 = Integer.parseInt(stz.nextToken());
-
-				al[p1].add(p2);
-				al[p2].add(p1);
-			}
-			grouping();
-		}
-	}
-
-	public static void grouping() {
-		Queue<Integer> q = new LinkedList<Integer>();
-
-		for(int i = 1; i <= v; i++) {
-			if(visit[i] == 0) {
-				q.add(i);
-				visit[i] = 1;
-			}
-
-			while(!q.isEmpty()) {
-				int now = q.poll();
-
-				for(int j = 0; j < al[now].size(); j++) {
-					if(visit[al[now].get(j)] == 0) {
-						q.add(al[now].get(j));
-					}
-					
-					if(visit[al[now].get(j)] == visit[now]) {
-						System.out.println("NO");
-						return;
-					}
-
-					if(visit[now] == 1 && visit[al[now].get(j)] == 0)
-						visit[al[now].get(j)] = 2;
-					else if(visit[now] == 2 && visit[al[now].get(j)] == 0)
-						visit[al[now].get(j)] = 1;
-				}
-			}
-		}
-
-		System.out.println("YES");
-	}
-
+    static boolean bfs() {
+        Queue<Integer> q = new LinkedList<>();
+        for (int i = 1; i <= v; i++) {
+            if (vis[i] == 0) {
+                q.add(i);
+                vis[i] = 1;
+            }
+            while (!q.isEmpty()) {
+                int now = q.poll();
+                for (int nx : list[now]) {
+                    if (vis[nx] == 0) q.add(nx);
+                    if (vis[nx] == vis[now]) return false;
+                    if (vis[now] == 1 && vis[nx] == 0) vis[nx] = 2;
+                    else if(vis[now] == 2 && vis[nx] == 0) vis[nx] = 1;
+                }
+            }
+        }
+        return true;
+    }
 }
