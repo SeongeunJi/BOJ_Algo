@@ -46,7 +46,7 @@ public class Main {
                     for (Pair chicken : chickens)
                         dist = Math.min(dist, getChickenDistance(i, j, chicken.x, chicken.y));
                     cd += dist;
-                    if(ans != 0 && cd >= ans) return;
+                    if(cd >= ans) return;
                 }
             }
         }
