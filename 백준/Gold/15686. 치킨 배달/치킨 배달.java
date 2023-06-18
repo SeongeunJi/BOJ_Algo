@@ -25,6 +25,7 @@ public class Main {
     static void combinatorics(int level, int start) {
         if(level == M) {
             getCityOfChickenDistance();
+            chickens.clear();
             return;
         }
         for (int i = start; i < N * N; i++) {
@@ -45,11 +46,11 @@ public class Main {
                     for (Pair chicken : chickens)
                         dist = Math.min(dist, getChickenDistance(i, j, chicken.x, chicken.y));
                     cd += dist;
+                    if(ans != 0 && cd >= ans) return;
                 }
             }
         }
         ans = Math.min(ans, cd);
-        chickens.clear();
     }
 
     static int getChickenDistance(int cx, int cy, int tx, int ty) {
