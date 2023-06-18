@@ -1,6 +1,5 @@
 import java.io.*;
 import java.util.*;
-
 public class Main {
     static int[][] board = new int[9][9];
     static int[] col_vis = new int[9];
@@ -27,10 +26,7 @@ public class Main {
     }
 
     static void go(int level, int start) {
-        if (level == blanks) {
-            printBoard();
-            return;
-        }
+        if (level == blanks) printBoard();
         for (int i = start; i < 81; i++) {
             int nx = i / 9, ny = i % 9;
             if (board[nx][ny] != 0) continue;
