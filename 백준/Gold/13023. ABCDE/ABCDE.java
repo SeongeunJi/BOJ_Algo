@@ -1,7 +1,7 @@
 import java.io.*;
 import java.util.*;
 public class Main {
-    static int N, M, ans;
+    static int N, M;
     static boolean[] vis;
     static List<List<Integer>> relations = new ArrayList<>();
     public static void main(String[] args) throws IOException {
@@ -20,16 +20,16 @@ public class Main {
         }
         for(int i = 0; i < N; i++) {
             vis[i] = true;
-            if(ans == 0) go(1, i);
+            go(1, i);
             vis[i] = false;
         }
-        System.out.println(ans);
+        System.out.println(0);
     }
 
     static void go(int level, int start) {
         if(level == 5) {
-            ans = 1;
-            return;
+            System.out.println(1);
+            System.exit(0);
         }
         for(int i : relations.get(start)) {
             if(vis[i]) continue;
