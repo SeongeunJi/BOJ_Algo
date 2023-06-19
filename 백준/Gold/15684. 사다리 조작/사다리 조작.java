@@ -1,67 +1,60 @@
 import java.io.*;
 import java.util.*;
-
 public class Main {
-    private static int n, m, h, answer;
-    private static int[][] map;
-    private static boolean finish = false;
-
-    public static void main(String[] args) throws Exception {
+    static final int RIGHT = 1, LEFT = 2;
+    static int N, M, H, installed;
+     static int[][] ladderArr;
+     static boolean finish;
+    public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer st = new StringTokenizer(br.readLine());
-
-        n = Integer.parseInt(st.nextToken());
-        m = Integer.parseInt(st.nextToken());
-        h = Integer.parseInt(st.nextToken());
-
-        map = new int[h + 1][n + 1];
-
-        int x, y;
-        for (int i = 0; i < m; i++) {
+        N = Integer.parseInt(st.nextToken());
+        M = Integer.parseInt(st.nextToken());
+        H = Integer.parseInt(st.nextToken());
+        ladderArr = new int[H+1][N+1];
+        for (int i = 1; i <= M; i++) {
             st = new StringTokenizer(br.readLine());
-            x = Integer.parseInt(st.nextToken());
-            y = Integer.parseInt(st.nextToken());
-            map[x][y] = 1;
-            map[x][y + 1] = 2;
+            int x = Integer.parseInt(st.nextToken());
+            int y = Integer.parseInt(st.nextToken());
+            ladderArr[x][y] = RIGHT;
+            ladderArr[x][y+1] = LEFT;
         }
-
-        for (int i = 0; i <= 3; i++) {
-            answer = i;
-            dfs(1, 0);
-            if (finish) break;
+        for(int i = 0; i <= 3; i++) {
+            installed = i;
+            go(0, 1);
+            if(finish) break;
         }
-
-        System.out.println((finish) ? answer : -1);
+        System.out.println(finish ? installed : -1);
     }
-
-    private static void dfs(int x, int count) {
-        if (finish) return;
-        if (answer == count) {
-            if (check()) finish = true;
+    static void go(int level, int start) {
+        if(finish) return;
+        if(installed == level) {
+            if(check()) finish = true;
             return;
         }
-
-        for (int i = x; i < h + 1; i++) {
-            for (int j = 1; j < n; j++) {
-                if (map[i][j] == 0 && map[i][j + 1] == 0) {
-                    map[i][j] = 1;
-                    map[i][j + 1] = 2;
-                    dfs(i, count + 1);
-                    map[i][j] = map[i][j + 1] = 0;
+        for(int i = start; i <= H; i++) {
+            for(int j = 1; j < N; j++) {
+                if(ladderArr[i][j] == 0 && ladderArr[i][j+1] == 0) {
+                    ladderArr[i][j] = RIGHT;
+                    ladderArr[i][j+1] = LEFT;
+                    go(level+1, i);
+                    ladderArr[i][j] = ladderArr[i][j+1] = 0;
                 }
             }
         }
     }
 
-    private static boolean check() {
-        for (int i = 1; i <= n; i++) {
-            int x = 1, y = i;
-            for (int j = 0; j < h; j++) {
-                if (map[x][y] == 1) y++;
-                else if (map[x][y] == 2) y--;
-                x++;
+    static boolean check() {
+        for(int i = 1; i <= N; i++) {
+            int x = i, y = 1;
+            for(int j = 0; j < H; j++) {
+                switch (ladderArr[y][x]) {
+                    case RIGHT -> x++;
+                    case LEFT -> x--;
+                }
+                y++;
             }
-            if (y != i) return false;
+            if(x != i) return false;
         }
         return true;
     }
