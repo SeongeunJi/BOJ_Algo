@@ -82,27 +82,19 @@ public class Main {
 
         int[][] newBoard = new int[N][M];
         for(int i=0; i<N/2; i++){
-            for(int j=0; j<M/2; j++){
-                newBoard[i][M/2+j] = board[i][j];
-            }
+            if (M / 2 >= 0) System.arraycopy(board[i], 0, newBoard[i], M / 2, M / 2);
         }
 
         for(int i=0; i<N/2; i++){
-            for(int j=M/2; j<M; j++){
-                newBoard[N/2+i][j] = board[i][j];
-            }
+            if (M - M / 2 >= 0) System.arraycopy(board[i], M / 2, newBoard[N / 2 + i], M / 2, M - M / 2);
         }
 
         for(int i=N/2; i<N; i++){
-            for(int j=M/2; j<M; j++){
-                newBoard[i][j-M/2] = board[i][j];
-            }
+            if (M - M / 2 >= 0) System.arraycopy(board[i], M / 2, newBoard[i], 0, M - M / 2);
         }
-        
+
         for(int i=N/2; i<N; i++){
-            for(int j=0; j<M/2; j++){
-                newBoard[i-N/2][j] = board[i][j];
-            }
+            if (M / 2 >= 0) System.arraycopy(board[i], 0, newBoard[i - N / 2], 0, M / 2);
         }
         board = newBoard;
 
@@ -110,26 +102,17 @@ public class Main {
     public static void move2(){
         int[][] newBoard = new int[N][M];
         for(int i=0; i<N/2; i++){
-            for(int j=0; j<M/2; j++){
-                newBoard[N/2+i][j] = board[i][j];
-
-            }
+            if (M / 2 >= 0) System.arraycopy(board[i], 0, newBoard[N / 2 + i], 0, M / 2);
         }
 
         for(int i=N/2; i<N; i++){
-            for(int j=0; j<M/2; j++){
-                newBoard[i][j+M/2] = board[i][j];
-            }
+            if (M / 2 >= 0) System.arraycopy(board[i], 0, newBoard[i], M / 2, M / 2);
         }
         for(int i=N/2; i<N; i++){
-            for(int j=M/2; j<M; j++){
-                newBoard[i-N/2][j] = board[i][j];
-            }
+            if (M - M / 2 >= 0) System.arraycopy(board[i], M / 2, newBoard[i - N / 2], M / 2, M - M / 2);
         }
         for(int i=0; i<N/2; i++){
-            for(int j=M/2; j<M; j++){
-                newBoard[i][j-M/2] = board[i][j];
-            }
+            if (M - M / 2 >= 0) System.arraycopy(board[i], M / 2, newBoard[i], 0, M - M / 2);
         }
         board = newBoard;
     }
