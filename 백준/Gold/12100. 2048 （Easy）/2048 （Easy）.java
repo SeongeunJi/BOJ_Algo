@@ -44,9 +44,6 @@ public class Main {
             case 2 -> move_down(dirArr[dir]);
             case 3 -> move_left(dirArr[dir]);
         }
-//        System.out.println("level = " + level);
-//        System.out.println("dir = " + dir);
-//        print(board1);
     }
 
     static void move_up(int[] dirArr) {
