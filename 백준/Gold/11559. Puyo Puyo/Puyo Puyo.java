@@ -17,9 +17,7 @@ public class Main {
             }
         }
         game();
-        System.out.println(ans);
     }
-
     static void game() {
         boolean finish = false;
         while(!finish) {
@@ -33,10 +31,11 @@ public class Main {
             }
             if(tmp > 0) {
                 ans++;
-                tilt();
+                moveByGravity();
             }
             else finish = true;
         }
+        System.out.println(ans);
     }
     static int bfs(int x, int y) {
         int cnt = 0;
@@ -55,13 +54,16 @@ public class Main {
             }
         }
         if(cnt >= 4) {
-            explode();
+            while (!q2.isEmpty()) {
+                Pair cur = q2.remove();
+                board[cur.x][cur.y] = '.';
+            }
             return 1;
         }
         else q2.clear();
         return 0;
     }
-    static void tilt() {
+    static void moveByGravity() {
         for (int i = 0; i < 6; i++) {
             int idx = 0;
             char[] tilted = new char[12];
@@ -72,12 +74,6 @@ public class Main {
             }
             for (int j = 0; j < 12; j++)
                 board[11-j][i] = tilted[j];
-        }
-    }
-    static void explode() {
-        while (!q2.isEmpty()) {
-            Pair cur = q2.remove();
-            board[cur.x][cur.y] = '.';
         }
     }
     static class Pair {
