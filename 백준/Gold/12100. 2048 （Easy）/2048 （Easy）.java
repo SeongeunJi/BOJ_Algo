@@ -21,12 +21,9 @@ public class Main {
                 System.arraycopy(board1[i], 0, board2[i], 0, N);
             int brute = tmp;
             for(int i = 0; i < 5; i++) {
-                tilt(brute % 4);
+                mx = Math.max(mx, tilt(brute % 4));
                 brute /= 4;
             }
-            for (int i = 0; i < N; i++)
-                for(int j = 0; j < N; j++)
-                    mx = Math.max(mx, board2[i][j]);
         }
         System.out.println(mx);
     }
@@ -38,7 +35,8 @@ public class Main {
             for (int j = 0; j < N; j++)
                 board2[i][j] = tmp[N - 1 - j][i];
     }
-    static void tilt(int dir) {
+    static int tilt(int dir) {
+        int mx = 0;
         while(dir-- >= 1) rotate_clockwise();
         for (int i = 0; i < N; i++) {
             int[] tilted = new int[N];
@@ -47,12 +45,16 @@ public class Main {
                 if(board2[i][j] == 0) continue;
                 if(tilted[idx] == 0)
                     tilted[idx] = board2[i][j];
-                else if(tilted[idx] == board2[i][j])
-                    tilted[idx++] = board2[i][j]<<1;
+                else if(tilted[idx] == board2[i][j]) {
+                    tilted[idx++] = board2[i][j] << 1;
+                    mx = Math.max(mx, board2[i][j] << 1);
+                }
                 else
                     tilted[++idx] = board2[i][j];
+                mx = Math.max(mx, board2[i][j]);
             }
             System.arraycopy(tilted, 0, board2[i], 0, N);
         }
+        return mx;
     }
 }
