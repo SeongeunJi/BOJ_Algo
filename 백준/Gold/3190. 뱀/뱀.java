@@ -5,11 +5,10 @@ public class Main {
     static char[][] board;
     static final int[] dx = {0, 1, 0, -1};
     static final int[] dy = {1, 0, -1, 0};
-    static final int RIGHT = 0, DOWN = 1, LEFT = 2, UP = 3;
     static Deque<Pair> snake = new LinkedList<>();
     static Queue<Pair> q = new LinkedList<>();
-    static boolean[] command;
-    static char[] dirArr;
+    static boolean[] isCommand = new boolean[10000];
+    static char[] command_dirArr;
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer st;
@@ -23,24 +22,21 @@ public class Main {
             board[Integer.parseInt(st.nextToken())-1][Integer.parseInt(st.nextToken())-1] = '@';
         }
         L = Integer.parseInt(br.readLine());
-        command = new boolean[10000];
-        dirArr = new char[L];
+        command_dirArr = new char[L];
         for (int i = 0; i < L; i++) {
             st = new StringTokenizer(br.readLine());
             int fir = Integer.parseInt(st.nextToken());
-            char two = st.nextToken().charAt(0);
-            command[fir] = true;
-            dirArr[i] = two;
+            isCommand[fir] = true;
+            command_dirArr[i] = st.nextToken().charAt(0);
         }
-        snake.add(new Pair(0, 0));
-        board[0][0] = '$';
         game();
     }
-
     static void game() {
         boolean finish = false;
-        int dir = RIGHT;
+        int dir = 0;
         int idx = 0;
+        board[0][0] = '$';
+        snake.add(new Pair(0, 0));
         while(!finish) {
             ans++;
             Pair last = null;
@@ -69,8 +65,8 @@ public class Main {
                 }
                 last = cur;
             }
-            if(command[ans])
-                dir = setDir(dirArr[idx++], dir);
+            if(isCommand[ans])
+                dir = setDir(command_dirArr[idx++], dir);
             while(!finish && !q.isEmpty())
                 snake.add(q.remove());
         }
